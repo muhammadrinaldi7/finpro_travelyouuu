@@ -1,19 +1,20 @@
 'use client'
 import endpoints from "@/api/endpoints";
 import useFetchData from "@/api/hooks/useFetchData";
-import { faLocation, faLocationArrow, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faLocation } from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-solid-svg-icons/faStar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
 export default function ProductPage () {
-    const {data,loading,error} = useFetchData(endpoints.activity);
+
+    const { data }: { data: { id: string; city: string; rating: number }[] } = useFetchData(endpoints.activity);
     const [open, setOpen] = useState(false);
     const [searchData,setSearchData] = useState("")
     const filteredData = data?.filter((item) => 
         item.city.toLowerCase().includes(searchData?.toLowerCase())
     )
-    console.log(data)
+
     return (
         <>  
            <section id="destination" className="w-full bg-primary-100 min-h-screen">

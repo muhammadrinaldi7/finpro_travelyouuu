@@ -1,10 +1,11 @@
 "use client";
 import endpoints from "@/api/endpoints";
 import useFetchData from "@/api/hooks/useFetchData";
+import Image from "next/image";
 
 // src/components/LandingPage/PromoSection.tsx
 const AboutSection = () => {
-    const { data: categories, loading, error } = useFetchData(endpoints.category);
+    const { data: categories, loading, error } = useFetchData(endpoints.category) as { data: { imageUrl: string }[], loading: boolean, error: string };
     return (
         <>
         <section id="about" className="relative min-h-screen overflow-hidden bg-gray-100">
@@ -39,24 +40,30 @@ const AboutSection = () => {
                         {!loading && !error && (
                             <>
                                 <div className="absolute top-0 left-0 transform -translate-x-2 translate-y-10 md:hover:scale-110 drop-shadow-lg hover:z-30">
-                                    <img
-                                        src={`${categories[0]?.imageUrl || ''}`} 
-                                        alt="Cultural Landscape 1"
-                                        className="w-48 h-64 border-4 border-white rounded-lg shadow-lg"
+                                <Image
+                                    src={`${categories[0]?.imageUrl || ''}`}
+                                    alt="Cultural Landscape 3"
+                                    width={192}
+                                    height={256}
+                                    className="border-4 border-white rounded-lg shadow-lg"
                                     />
                                 </div>
                                 <div className="absolute top-0 right-0 transform translate-x-2 -translate-y-8 md:hover:scale-110 drop-shadow-lg hover:z-30">
-                                    <img
-                                        src={`${categories[1]?.imageUrl || ''}`}
-                                        alt="Cultural Landscape 2"
-                                        className="w-48 h-64 border-4 border-white rounded-lg shadow-lg"
+                                <Image
+                                    src={`${categories[1]?.imageUrl || ''}`}
+                                    alt="Cultural Landscape 3"
+                                    width={192}
+                                    height={256}
+                                    className="border-4 border-white rounded-lg shadow-lg"
                                     />
                                 </div>
                                 <div className="relative z-10 drop-shadow-lg md:hover:scale-110">
-                                    <img
-                                        src={`${categories[3]?.imageUrl || ''}`}
-                                        alt="Cultural Landscape 3"
-                                        className="w-48 h-64 border-4 border-white rounded-lg shadow-lg"
+                                <Image
+                                    src={`${categories[3]?.imageUrl || ''}`}
+                                    alt="Cultural Landscape 3"
+                                    width={192}
+                                    height={256}
+                                    className="border-4 border-white rounded-lg shadow-lg"
                                     />
                                 </div>
                             </>

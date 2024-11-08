@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axiosClient from "@/api/axiosClient";
 
 const useFetchData = (url: string) => {
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

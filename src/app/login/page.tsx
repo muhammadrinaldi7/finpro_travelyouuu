@@ -7,10 +7,15 @@ import { useUserStore } from "@/store/userStore";
 import { faXmark } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react";
-
 const Login = () => {
+    type PostData = {
+        data: {token: string, message: string, data: {id: string, name: string, email: string, role: string, phoneNumber: string, profilePictureUrl: string}};
+        postData: (payload: unknown) => Promise<void>;
+        loading: boolean;
+        error: string | null;
+      };
     const {modalLogin,toggleModalLogin } = useNavbarStore();
-    const {data, postData, loading, error} = usePostData(endpoints.login)
+    const { data, postData, error } = usePostData(endpoints.login) as unknown as PostData;
     const [formValues, setFormValues] = useState({email: "", password: ""});
     const setUser = useUserStore((state) => state.setUser);
     const setToken = useUserStore((state) => state.setToken);
@@ -22,7 +27,7 @@ const Login = () => {
     useEffect(() => {
         setUser(data?.data)
         setToken(data?.token)
-    }, [data,setUser])
+    }, [data,setUser,setToken])
     console.log(token)
     console.log(data)
     return (

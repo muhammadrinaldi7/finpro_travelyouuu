@@ -2,12 +2,12 @@ import { useState } from "react";
 import axiosClient from "@/api/axiosClient";
 
 const usePostData = (url: string) => {
-  const [data, setData] = useState<any | null>(null);
+  const [data, setData] = useState<unknown | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   // Fungsi untuk melakukan POST
-  const postData = async (payload: any) => {
+  const postData = async (payload: unknown) => {
     setLoading(true);
     setError(null); // Reset error sebelum mulai request baru
     await axiosClient.post(url, payload).then((response) => {
