@@ -1,7 +1,5 @@
 "use client"
 
-import { inter } from "@/app/fonts/fonts";
-
 const HeroSection = () => {
     return (
         <>
@@ -17,7 +15,7 @@ const HeroSection = () => {
                         </h1>
 
                         <p className="mt-4 sm:text-xl/relaxed">
-                           "Your Adventure, Your Way with <span className="font-travelyouu">TravelYouuu</span>"
+                           Your Adventure, Your Way with <span className="font-travelyouu">TravelYouuu</span>
                         </p>
 
                         <div className="flex flex-wrap justify-center gap-4 mt-8">

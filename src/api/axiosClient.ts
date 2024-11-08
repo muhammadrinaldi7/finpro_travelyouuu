@@ -23,7 +23,7 @@ axiosClient.interceptors.request.use(
 
 // Response Interceptor
 axiosClient.interceptors.response.use(
-  (response) => response.data,
+  (response) => response,
   (error) => {
     // Handling error seperti 401 Unauthorized atau 500 Server Error
     if (error.response && error.response.status === 401) {

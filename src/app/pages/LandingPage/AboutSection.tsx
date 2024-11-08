@@ -1,11 +1,12 @@
 "use client";
 import endpoints from "@/api/endpoints";
-import useFetchData from "@/api/hooks/useFetchData";
+import useCategories from "@/api/hooks/useCategories";
 import Image from "next/image";
 
 // src/components/LandingPage/PromoSection.tsx
 const AboutSection = () => {
-    const { data: categories, loading, error } = useFetchData(endpoints.category) as { data: { imageUrl: string }[], loading: boolean, error: string };
+    const {data,loading,error} = useCategories(endpoints.category);
+    console.log(data)
     return (
         <>
         <section id="about" className="relative min-h-screen overflow-hidden bg-gray-100">
@@ -14,7 +15,7 @@ const AboutSection = () => {
                 className="absolute inset-0 bg-cover md:bg-contain opacity-50 lg:scale-150 bg-center z-[1] bg-no-repeat"
             ></div>
             <div className="container relative z-20 px-10 py-16 mx-auto">
-                <div className="flex flex-col items-center justify-center gap-10 p-6 rounded-lg md:flex-row bg-primary-300/75">
+                <div className="flex flex-col items-center justify-center gap-10 px-6 py-10 rounded-lg md:flex-row bg-primary-300/75">
                     <div className="w-full p-3">
                         <h1 className="text-3xl font-normal text-accent-100 font-bigtittle">
                             Discover the World of Art and Culture with <span className="font-travelyouu">TravelYouuu</span>
@@ -41,27 +42,27 @@ const AboutSection = () => {
                             <>
                                 <div className="absolute top-0 left-0 transform -translate-x-2 translate-y-10 md:hover:scale-110 drop-shadow-lg hover:z-30">
                                 <Image
-                                    src={`${categories[0]?.imageUrl || ''}`}
+                                    src={`${data[0]?.imageUrl ||'/img/hero.webp'}`}
                                     alt="Cultural Landscape 3"
-                                    width={192}
+                                    width={256}
                                     height={256}
                                     className="border-4 border-white rounded-lg shadow-lg"
                                     />
                                 </div>
                                 <div className="absolute top-0 right-0 transform translate-x-2 -translate-y-8 md:hover:scale-110 drop-shadow-lg hover:z-30">
                                 <Image
-                                    src={`${categories[1]?.imageUrl || ''}`}
+                                    src={`${data[1]?.imageUrl||'/img/hero.webp'}`}
                                     alt="Cultural Landscape 3"
-                                    width={192}
+                                    width={256}
                                     height={256}
                                     className="border-4 border-white rounded-lg shadow-lg"
                                     />
                                 </div>
                                 <div className="relative z-10 drop-shadow-lg md:hover:scale-110">
                                 <Image
-                                    src={`${categories[3]?.imageUrl || ''}`}
+                                    src={`${data[3]?.imageUrl||'/img/hero.webp'}`}
                                     alt="Cultural Landscape 3"
-                                    width={192}
+                                    width={256}
                                     height={256}
                                     className="border-4 border-white rounded-lg shadow-lg"
                                     />

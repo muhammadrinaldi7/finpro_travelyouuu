@@ -1,6 +1,6 @@
 'use client'
 import endpoints from "@/api/endpoints";
-import useFetchData from "@/api/hooks/useFetchData";
+import useActivities from "@/api/hooks/useActivities";
 import { faLocation } from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-solid-svg-icons/faStar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,7 +8,7 @@ import { useState } from "react";
 
 export default function ProductPage () {
 
-    const { data }: { data: { id: string; city: string; rating: number }[] } = useFetchData(endpoints.activity);
+    const { data } = useActivities(endpoints.activity);
     const [open, setOpen] = useState(false);
     const [searchData,setSearchData] = useState("")
     const filteredData = data?.filter((item) => 
