@@ -1,3 +1,5 @@
+'use client'
+
 import endpoints from "@/api/endpoints";
 import usePostData from "@/api/hooks/usePostData";
 import { useNavbarStore } from "@/store/navbarStore"
