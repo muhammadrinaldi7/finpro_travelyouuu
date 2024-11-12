@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import {  Pacifico, Lexend_Deca,Lato } from 'next/font/google';
+import ModalHandler from "@/modalHandler";
 
 
 const monserrat = Pacifico({
@@ -41,8 +42,9 @@ export default function RootLayout({
         <link rel="icon" href="/img/favicon.ico" />
       </head>
       <body
-        className={`font-desc antialiased`}
+        className={`font-desc antialiased dark:text-black`}
       >
+        <ModalHandler />
         {children}
       </body>
     </html>

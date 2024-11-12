@@ -5,6 +5,7 @@ import ProductPage from "./pages/LandingPage/ProductSection";
 
 
 export default function Home() {
+  
   return (
     <>
     <Header/>

@@ -1,25 +1,33 @@
 // src/components/Header.tsx
 "use client"
-import { faBars, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faBars, faCartShopping, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useNavbarStore } from "@/store/navbarStore"; // Import Zustand store
-import Login from "@/app/login/page";
+import Login from "@/components/modals/login/page";
+import { useUserStore } from "@/store/userStore";
+import Logout from "../modals/register/page";
 
 export const Header = () => {
-  const { open, toggleOpen, toggleModalLogin } = useNavbarStore(); // Ambil state open dan fungsi toggle dari Zustand
-
+  const { open, modalLogin,modalLogout , toggleOpen,toggleModalLogout, toggleModalLogin } = useNavbarStore(); // Ambil state open dan fungsi toggle dari Zustand
+  const { user } = useUserStore();
+  console.log(user)
   return (
     <header className="container absolute mx-auto bg-transparent">
       <div className="w-full">
         {/* NavMobile */}
-        <div className="fixed top-0 z-30 flex items-center justify-between w-full h-16 px-6 bg-transparent md:hidden">
+        <div className="fixed z-30 flex items-center justify-between w-full h-16 px-6 mt-2 bg-transparent top-2 md:hidden">
           <div>
             <a href="#home">
-              <h1 className="text-2xl font-bold font-logo text-primary-300 ">TravelYouuu</h1>
+              <h1 className="text-2xl font-bold font-travelyouu font-logo text-primary-300 ">TravelYouuu</h1>
             </a>
           </div>
-          <div className="flex flex-col gap-10">
+          
+          <div className="flex flex-row gap-6">
+          {user && <div className="flex items-center gap-2">
+            <FontAwesomeIcon icon={faCartShopping} className="w-6 h-6 font-bold text-blue-600" />
+            <p className="text-sm font-bold text-blue-600">( 1 )</p>
+          </div>}
             <div>
               <button
                 type="button"
@@ -54,11 +62,19 @@ export const Header = () => {
                 <li>
                   <Link href="#"> Review </Link>
                 </li>
-                <li>
-                  <a onClick={toggleModalLogin} className="text-red-400">
-                    Login
+                {user === null ? (
+                  <li>
+                  <a onClick={toggleModalLogin} className="text-green-400">
+                    Log In
                   </a>
                 </li>
+                ):(
+                  <li className="">
+                  <a onClick={toggleModalLogout} className="text-red-400">
+                    <FontAwesomeIcon icon={faArrowLeft} />  <span>Log Out</span>
+                  </a>
+                </li>
+                )}
               </ul>
             </div>
           </div>
@@ -98,16 +114,32 @@ export const Header = () => {
                   Review
                 </Link>
               </li>
-              <li>
+              {user && (
+                <li>
+                  <a className="p-2 text-black border border-white rounded-md cursor-pointer hover:text-black hover:bg-gray-200/75">
+                    <FontAwesomeIcon icon={faCartShopping} className="mr-2" /> 1
+                  </a>
+                </li>
+              )}
+              {user === null ? (
+                <li>
                 <a onClick={toggleModalLogin} className="p-2 text-black border border-white rounded-md cursor-pointer hover:text-black hover:bg-gray-200/75">
                   <FontAwesomeIcon icon={faUser} className="mr-2" /> Login
                 </a>
               </li>
+              ):(
+                <li>
+                  <a onClick={toggleModalLogin} className="p-2 text-white border rounded-md cursor-pointer border-red-600/75 bg-red-600/75 hover:text-black hover:bg-red-400/75">
+                    <FontAwesomeIcon icon={faArrowLeft} className="mr-2 " /> Log Out
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
         </div>
       </div>
-      <Login/>
+      {modalLogin && <Login/>}
+      {modalLogout && <Logout/>}
     </header>
   );
 };

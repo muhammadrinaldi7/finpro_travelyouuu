@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import axiosClient from "@/api/axiosClient";
 import { Category } from "./useCategories";
+import { useActivitiesStore } from "@/store/useActivityStore";
 
 // Define the Category interface to represent each category item
 interface Activity {
@@ -47,26 +48,26 @@ interface ActivityInput {
   city:string;
   location_maps:string;
 }
-
 // Custom hook to handle CRUD operations for Activities
 const useActivities = (url: string) => {
   const [data, setData] = useState<Activity[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
+  const setActivity = useActivitiesStore((state)=> state.setActivity);
   // GET: Fetch Activities
   const fetchActivities = useCallback(async () => {
     setLoading(true);
     try {
       const response = await axiosClient.get<ApiResponse>(url);
       setData(response.data.data);
+      setActivity(response.data)
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
       setLoading(false);
     }
-  }, [url, setLoading, setData, setError]);
+  }, [url, setActivity, setLoading, setData, setError]);
 
   // POST: Add a new Activity
   const addActivity = async (newActivity: ActivityInput) => {
